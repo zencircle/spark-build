@@ -1,5 +1,6 @@
 import sys
 import time
+from threading import Thread
 
 import utils
 
@@ -31,7 +32,8 @@ def submit_loop(launch_rate_per_min, dispatchers):
 
     dispatcher_index = 0
     while(True):
-        submit_job(dispatchers[dispatcher_index])
+        t = Thread(target=submit_job, args=(dispatchers[dispatcher_index],))
+        t.start()
         dispatcher_index = (dispatcher_index + 1) % num_dispatchers
         print("sleeping {} sec.".format(sec_between_submits))
         time.sleep(sec_between_submits)
