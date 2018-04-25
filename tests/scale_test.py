@@ -1,9 +1,7 @@
 import sys
 import time
+import spark_utils as utils
 from threading import Thread
-
-import utils
-
 
 MONTE_CARLO_APP_URL = "http://xhuynh-dev.s3.amazonaws.com/monte-carlo-portfolio.py"
 
