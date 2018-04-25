@@ -23,6 +23,8 @@ MONTE_CARLO_APP_URL = "http://xhuynh-dev.s3.amazonaws.com/monte-carlo-portfolio.
 def submit_job(dispatcher_service_name):
     args = ["--conf", "spark.cores.max=1",
             "--conf", "spark.mesos.containerizer=mesos",
+            "--conf", "spark.mesos.executor.docker.image=mesosphere/spark-dev:931ca56273af913d103718376e2fbc04be7cbde0"
+            # use Hector's image
             #"--conf", "spark.mesos.driverEnv.SPARK_USER=root", # Run as root on centos
             ]
 
