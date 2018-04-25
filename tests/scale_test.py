@@ -41,17 +41,20 @@ def submit_loop(launch_rate_per_min, dispatchers):
 
 if __name__ == "__main__":
     """
-        Usage: python scale_test.py [num_dispatchers] [launch_rate_per_min]
+        Usage: python scale_test.py [dispatchers_file] [launch_rate_per_min]
     """
 
-    if len(sys.argv) < 2:
-        print("Usage: scale_test.py [launch_rate_per_min]")
+    if len(sys.argv) < 3:
+        print("Usage: scale_test.py [dispatchers_file] [launch_rate_per_min]")
         sys.exit(2)
 
-    launch_rate_per_min = int(sys.argv[1])
-    print("launch_rate_per_min: {}".format(launch_rate_per_min))
-
-    dispatchers = ["spark", "spark2"]
+    dispatchers_file = sys.argv[1]
+    print("dispatchers_file: {}".format(dispatchers_file))
+    with open(dispatchers_file) as f:
+        dispatchers = f.read().splitlines()
     print("dispatchers: {}".format(dispatchers))
+
+    launch_rate_per_min = int(sys.argv[2])
+    print("launch_rate_per_min: {}".format(launch_rate_per_min))
 
     submit_loop(launch_rate_per_min, dispatchers)
