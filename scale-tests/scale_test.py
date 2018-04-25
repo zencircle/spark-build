@@ -6,6 +6,20 @@ from threading import Thread
 MONTE_CARLO_APP_URL = "http://xhuynh-dev.s3.amazonaws.com/monte-carlo-portfolio.py"
 
 
+# Inputs:
+# - File containing a list of dispatcher service names, one per line
+# - Launch rate per min.
+#
+# This job will submit jobs at the specified launch rate, alternating among the given
+# set of dispatchers.
+#
+# Running:
+# > dcos cluster setup <cluster url>
+# > dcos package install spark ... # Install one or more dispatchers
+# > export PYTHONPATH=../spark-testing:../testing
+# > python scale_test.py /tmp/dispatchers.txt 6
+
+
 def submit_job(dispatcher_service_name):
     args = ["--conf", "spark.cores.max=1",
             "--conf", "spark.mesos.containerizer=mesos",
