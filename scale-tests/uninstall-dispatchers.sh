@@ -1,4 +1,4 @@
-!/bin/sh
+#!/bin/sh
 cd "${0%/*}" # to the folder containing this script.
 
 set -x

@@ -19,8 +19,6 @@ SPARK_PACKAGE_NAME="spark"
 
 #TODO: add options json file contents
 def deploy_dispatchers(num_dispatchers, service_name_base, output_file, options_json_file):
-    outfile = open(output_file, "w")
-
     with open(output_file, "w") as outfile:
         for i in range(0, num_dispatchers):
             service_name = "{}-{}".format(service_name_base, str(i))

@@ -55,12 +55,13 @@ def submit_loop(launch_rate_per_min, dispatchers):
 
 
 if __name__ == "__main__":
-    """
+    usage = """
+        Setup: export PYTHONPATH=../spark-testing:../testing
         Usage: python scale_test.py [dispatchers_file] [launch_rate_per_min]
     """
 
     if len(sys.argv) < 3:
-        print("Usage: scale_test.py [dispatchers_file] [launch_rate_per_min]")
+        print(usage)
         sys.exit(2)
 
     dispatchers_file = sys.argv[1]
