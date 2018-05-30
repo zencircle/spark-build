@@ -20,7 +20,6 @@ Options:
 """
 
 
-import csv
 import json
 import logging
 import random
@@ -63,13 +62,17 @@ def _get_duration() -> int:
     return duration
 
 
+def _is_strict(dispatcher: typing.Dict) -> bool:
+    return dispatcher["service"].get("service_account") is not None
+
+
 def submit_job(dispatcher: typing.Dict, duration: int, config: typing.List[str]):
     dispatcher_name = dispatcher["service"]["name"]
     log.info("Submitting job to dispatcher: %s, with duration: %s min.", dispatcher_name, duration)
 
     app_args = "100000 {}".format(str(duration * 30))  # about 30 iterations per min.
 
-    if dispatcher["service"].get("service_account") is not None:  # only defined in strict mode
+    if _is_strict(dispatcher):
         spark_utils.submit_job(
             service_name=dispatcher_name,
             app_url=MONTE_CARLO_APP_URL,
