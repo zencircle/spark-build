@@ -4,7 +4,7 @@ Generate a generic SDK dashboard.
 ```bash
 pip install grafanalib
 
-generate-dashboard -o sdk.generated.json sdk.dashboard.py
+generate-dashboard -o ../monitoring/dashboards/sdk.generated.json sdk.dashboard.py
 ```
 
 This creates an `sdk.json` file that contains the Grafana dashboard definition for monitoring SDK-based frameworks
