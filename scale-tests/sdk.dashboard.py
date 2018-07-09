@@ -128,7 +128,7 @@ def resource_row(pod_type: str = None) -> G.Row:
                 ],
                 span=3,
                 steppedLine=True,
-                yAxes=G.YAxes(left=G.YAxis(format="short", decimals=0)),
+                yAxes=G.YAxes(left=G.YAxis(format=G.BYTES_FORMAT, decimals=0)),
             ),
             W.prometheus.PromGraph(
                 data_source=PROMETHEUS_DATA_SOURCE,
@@ -141,7 +141,7 @@ def resource_row(pod_type: str = None) -> G.Row:
                 ],
                 span=3,
                 steppedLine=True,
-                yAxes=G.YAxes(left=G.YAxis(format="short", decimals=0)),
+                yAxes=G.YAxes(left=G.YAxis(format=G.BYTES_FORMAT, decimals=0)),
             ),
         ],
     )
