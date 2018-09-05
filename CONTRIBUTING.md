@@ -13,15 +13,15 @@ git clone git@github.com:mesosphere/spark.git
 # Add apache spark as upstream
 git remote add upstream git@github.com:apache/spark
 # Depending of if you want to continue work on upstream master/branch
-git pull  git pull upstream master/branch
+git pull upstream [master | <branch>]
 ```
 
 # Pull Request
 
 ```
 git checkout master
-git pull upstream master/branch
-git checkout -b <feature-branch> upstream/master
+git pull upstream [master | <branch>]
+git checkout -b <feature-branch> [upstream | master]
 # write feature
 git push origin <feature-branch>
 # create PR against apache/spark
