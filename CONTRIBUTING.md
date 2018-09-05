@@ -7,20 +7,20 @@ You should first understand what the hell you're doing.
 
 # Setup repo
 ```
-# Public fork of Apache Spark.  Used for public pull requests.
-git remote add origin git@github.com:mesosphere/spark.git
-git fetch origin
+# Set up Mesosphere Spark, a public fork of Apache Spark, used for public pull requests.
+git clone git@github.com:mesosphere/spark.git
 
-# Apache Spark
+# Add apache spark as upstream
 git remote add upstream git@github.com:apache/spark
-git fetch upstream
+# Depending of if you want to continue work on upstream master/branch
+git pull  git pull upstream master/branch
 ```
 
 # Pull Request
 
 ```
 git checkout master
-git pull upstream master
+git pull upstream master/branch
 git checkout -b <feature-branch> upstream/master
 # write feature
 git push origin <feature-branch>
