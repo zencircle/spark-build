@@ -70,7 +70,7 @@ readonly CONTAINER_NAME="${TEST_NAME}"
 readonly CONTAINER_SSH_AGENT_EXPORTS=/tmp/ssh-agent-exports
 readonly CONTAINER_SSH_KEY=/ssh/key
 readonly IMAGE_NAME="mesosphere/dcos-commons:${TEST_NAME}"
-readonly LOG_FILE="${TEST_NAME}.log"
+readonly LOG_FILE="${TEST_NAME}_$(date +%Y%m%d-%H%M%S).log"
 readonly TEST_DIRECTORY="${TEST_NAME}_$(date +%Y%m%d)"
 readonly TEST_S3_DIRECTORY_URL="s3://${TEST_S3_BUCKET}/${TEST_S3_FOLDER}/"
 readonly DCOS_CLI_REFRESH_INTERVAL_SEC=600 # 10 minutes.
@@ -83,6 +83,7 @@ if [ "${SECURITY}" != "permissive" ] && [ "${SECURITY}" != "strict" ]; then
 fi
 
 for boolean_option in SHOULD_INSTALL_INFRASTRUCTURE \
+                        SHOULD_UNINSTALL_INFRASTRUCTURE \
                         SHOULD_INSTALL_NON_GPU_DISPATCHERS \
                         SHOULD_INSTALL_GPU_DISPATCHERS \
                         SHOULD_RUN_FAILING_STREAMING_JOBS \
@@ -113,6 +114,7 @@ eval "$(maws li "${AWS_ACCOUNT}")"
 
 if is_interactive; then
   for boolean_option in SHOULD_INSTALL_INFRASTRUCTURE \
+                          SHOULD_UNINSTALL_INFRASTRUCTURE \
                           SHOULD_INSTALL_NON_GPU_DISPATCHERS \
                           SHOULD_INSTALL_GPU_DISPATCHERS \
                           SHOULD_RUN_FAILING_STREAMING_JOBS \
@@ -446,6 +448,18 @@ if [ "${SHOULD_RUN_GPU_BATCH_JOBS}" = true ]; then
   log "Started GPU batch jobs in ${runtime} seconds"
 else
   log 'Skipping running of GPU batch jobs'
+fi
+
+if [ "${SHOULD_UNINSTALL_INFRASTRUCTURE}" = true ]; then
+  log 'Uninstalling infrastructure'
+  start_time=$(date +%s)
+  container_exec \
+    ./scale-tests/setup_streaming.py "${INFRASTRUCTURE_OUTPUT_FILE}" --cleanup
+  end_time=$(date +%s)
+  runtime=$(($end_time - $start_time))
+  log "Uninstalled infrastructure in ${runtime} seconds"
+else
+  log 'Skipping uninstalling of infrastructure'
 fi
 
 log 'Uploading log file to S3'
